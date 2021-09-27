@@ -1,9 +1,10 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
-
+from .models import Item
 
 def home_page(request):
-    return render(request, 'home.html', {
-        'new_item_text': request.POST.get('item_text','')})
-        # request.POST['key'] : returns a key error if key doesn't exist
-        # request.POST.get('key','default) : returns None if key doesn't exist or default if provided
+    if request.method == 'POST':
+        Item.objects.create(text=request.POST['item_text'])
+        return redirect('/')
+    
+    return render(request, 'home.html')
