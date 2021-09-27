@@ -14,7 +14,6 @@ class HomePageTest(TestCase):
 
     def test_root_url_resolves_to_home_page_view(self):
         found = resolve('/')
-        print("the output of found is:", found)
         self.assertAlmostEqual(found.func, home_page)
     
     def test_home_page_returns_correct_html(self):
