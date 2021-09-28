@@ -58,15 +58,7 @@ class HomePageTest(TestCase):
         
         self.assertEqual(Item.objects.count(), 0)
     
-    def test_home_page_displays_all_items(self):
-        Item.objects.create(text='item 1')
-        Item.objects.create(text='item 2')
-        request = HttpRequest()
 
-        response = home_page(request)
-
-        self.assertIn('item 1', response.content.decode())
-        self.assertIn('item 2', response.content.decode())
 
 
     
@@ -90,6 +82,11 @@ class ItemModelTest(TestCase):
         self.assertEqual(second_saved_item.text, 'Item the second')
 
 class ListViewTest(TestCase):
+
+    def test_use_list_template(self):
+        response = self.client.get('/lists/the-only-list-in-the-world')
+
+        self.assertTemplateUsed(response, 'list.html')
 
     def test_displays_all_items(self):
         Item.objects.create(text='item 1')
