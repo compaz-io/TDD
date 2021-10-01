@@ -9,3 +9,6 @@
 geckodriver.log
 *.pyc
 *.sqlite3
+
+htmlcov/*
+.coverage
