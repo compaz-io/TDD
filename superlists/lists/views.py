@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from .models import Item
+from .models import Item, List
 
 def home_page(request):
 
@@ -12,10 +12,7 @@ def view_list(request):
     return render(request, 'list.html', {'items': items})
 
 def new_list(request):
-    if request.method == 'POST':
-        Item.objects.create(text=request.POST['item_text'])
-        # new_item_text = request.POST['item_text']
-        # item = Item(text=new_item_text)
-        # item.save()
-
+    #if request.method == 'POST':
+    list_ = List.objects.create()
+    Item.objects.create(text=request.POST['item_text'], list=list_)
     return redirect('/lists/the-only-list-in-the-world')
